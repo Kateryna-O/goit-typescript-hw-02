@@ -1,6 +1,17 @@
 import ReactModal from "react-modal";
 import styles from "./ImageModal.module.css";
 
+type ImageMod = {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  largeImageURL: string;
+  description: string;
+  likes: number;
+  tags: { title: string }[];
+  user: { username: string };
+  created_at: Date;
+};
+
 const ImageModal = ({
   isOpen,
   onRequestClose,
@@ -10,7 +21,7 @@ const ImageModal = ({
   tags,
   user,
   created_at,
-}) => {
+}: ImageMod) => {
   return (
     <ReactModal
       isOpen={isOpen}

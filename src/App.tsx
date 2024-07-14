@@ -1,23 +1,37 @@
 import React, { useState } from "react";
-import SearchBar from "./components/SearchBar/SearchBar.jsx";
-import ImageGallery from "./components/ImageGallery/ImageGallery.jsx";
-import ErrorMessage from "./components/ErrorMessage/ErrorMessage.jsx";
-import Loader from "./components/Loader/Loader.jsx";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn.jsx";
-import ImageModal from "./components/ImageModal/ImageModal.jsx";
-import getImages from "./photo-api";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import Loader from "./components/Loader/Loader";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 import { Toaster, toast } from "react-hot-toast";
+import getImages from "./photo-api";
+
+ export type Photo = {
+  id: string;
+  urls: {
+    small: string;
+    full: string;
+  };
+  alt_description: string;
+  likes: number;
+  tags: { title: string }[];
+  user: { username: string };
+  created_at: Date;
+  description: string;
+};
 
 function App() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleSearchSubmit = async (searchQuery) => {
+  const handleSearchSubmit = async (searchQuery: string) => {
     setPage(1);
     setImages([]);
     try {
@@ -47,7 +61,7 @@ function App() {
     }
   };
 
-  const openModal = (photo) => {
+  const openModal = (photo: Photo) => {
     setSelectedPhoto(photo);
     setModalIsOpen(true);
   };
