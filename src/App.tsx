@@ -36,7 +36,7 @@ function App() {
     setImages([]);
     try {
       setLoading(true);
-      const data = await getImages(searchQuery, 1);
+      const data: Photo[] = await getImages(searchQuery, 1);
       setImages(data);
       setQuery(searchQuery);
     } catch (error) {
